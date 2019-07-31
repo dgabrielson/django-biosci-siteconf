@@ -1,0 +1,114 @@
+{% extends 'site_base.html' %}
+
+{# ########################################### #}
+
+{% block html_head %}
+{{ block.super }}
+<link href="{{ STATIC_URL }}css/forms.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+
+    .search-result {
+        padding: 0.5ex;
+        margin-bottom: 1ex;
+    }
+    .search-result .link {
+        font-size: larger;
+        font-weight: normal;
+    }
+    .search-result .content-preview {
+        font-size: smaller;
+        margin-left: 2.5ex;
+    }
+    .search-result .content-preview p {
+        margin: 0;
+        padding: 0;
+    }
+    .search-result .extra-info {
+        margin-left: 2ex;
+    }
+
+</style>
+
+
+{% endblock %}
+
+{# ########################################### #}
+
+{% block page_title %}Search{% if query %} Results{% endif %}{% endblock %}
+{% block page_content_header %}Search{% if query %} Results{% endif %}{% endblock %}
+
+{# ########################################### #}
+
+{% block page_content_body %}
+
+    {% if query %}
+
+        <p>
+            Your search for
+            &ldquo;{{ query }}&rdquo;
+            returned {{ paginator.count }} results:
+        </p>
+
+        {% for result in page.object_list %}
+            {% if result.app_label and result.model_name %}
+                {# live-rendered results #}
+                {% with template="search/results/"|add:result.app_label|add:"/"|add:result.model_name|add:".html" %}
+                    <div class="search-result">
+                        {% include template %}
+                    </div>
+                {% endwith %}
+
+                {% comment %}
+                    {# an example result template #}
+                    <div class="link">
+                        <a href="{{ result.object.get_absolute_url }}">
+                            {{ result.object }}
+                        </a>
+                    </div>
+                    <div class="content-preview">{# optional #}...</div>
+                    <div class="extra-info">
+                        Score: {{ result.score }} ({{ result.verbose_name }})
+                    </div>
+                {% endcomment %}
+
+            {% endif %}
+
+        {% empty %}
+            <p>
+                <strong>No results found</strong>.
+            </p>
+        {% endfor %}
+
+    {% if query and paginator.count > 0 %}
+        {% include 'site_pagination.html' with page_obj=page object_name='search results' paginated_query='q='|add:query %}
+    {% endif %}
+
+    {% else %}
+
+        <form method="get" action=".">
+            <table class="table-form">
+                {# form #}
+                <tr>
+                    <th>
+                        <label for="id_q">Search:</label>
+                    </th>
+                    <td>
+                        <input id="id_q" type="text" name="q">
+                    </td>
+                </tr>
+                <tr class="submit-row">
+                    <td>
+                        <input type="submit" value="Search">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    {% endif %}
+
+
+
+{% endblock %}
+
+{# ########################################### #}

@@ -1,0 +1,31 @@
+{% load unitpages_tags %}
+
+{% url 'persontag-taggroup-list' as link_url %}
+{% if link_url %}
+    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+        Research
+    </a>
+    {% if link_url in current_url %}
+        <ul class="menu">
+            {% url 'persontag-person-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                        By Person
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                {% include 'publications/includes/app_navigation.html' %}
+            </li>
+            {% unitpage_url 'museums-and-collections' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                        Museums &amp; Collections
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endif %}

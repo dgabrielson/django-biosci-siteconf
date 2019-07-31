@@ -1,0 +1,41 @@
+{% load directory_tags %}
+<tr>
+    {% with email=entry.person.email page_url=entry.get_absolute_url %}
+    <td>
+        {% if page_url %}
+            <a href="{{ page_url }}">{{ entry.person }}</a>
+        {% else %}
+            {% if email %}
+                {{ email|cloak_email_link:entry.person }}
+            {% else %}
+                {{ entry.person }}
+            {% endif %}
+        {% endif %}
+    </td>
+    {% endwith %}
+    <td>
+        {% if entry.title %}
+            {{ entry.title }}
+        {% else %}
+            {{ entry.person.title }}
+        {% endif %}
+    </td>
+    
+    <td>{% if entry.office %}{{ entry.office }}{% endif %}</td>
+    <td>
+        {% if entry.person.phone %}
+            {{ entry.person.phone }}
+        {% else %}
+            {% if entry.office.phone_number %}
+                 {{ entry.office.phone_number }}
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>
+{% if entry.note %}
+<tr>
+    <td colspan="4"> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &rarr; <em> {{ entry.note }}</em> 
+    </td> 
+</tr>
+{% endif %}

@@ -1,0 +1,51 @@
+{% load unitpages_tags shoutfor %}
+{% url 'shout-category-list' as url %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='News &amp; Events' %}
+    {# TODO: add shout category links here #}
+    {# TODO: Add upcoming webreg events here #}
+    <ul class="sub-menu">
+        {% comment %}
+        {% unitpage_title '/faculty-info/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+        {% endcomment %}
+
+
+        {% comment %}
+        {% get_shout_category_list 'category_list' 'news' %}
+        {% for category in category_list %}
+            {% url 'shout-archive-index' category_slug=category.slug as url %}
+            {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label=category %}
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% endcomment %}
+
+
+        {% comment %}
+        {% for obj_category in shout_category_list %}
+            {% if obj_category and obj_category.url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label=obj_category url=obj_category.url %}
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% endcomment %}
+
+
+        {% url 'eventscalendar-index' as url %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' with label='Events calendar' %}
+            </li>
+        {% endif %}
+    </ul>
+</li>
+{% endif %}

@@ -1,0 +1,14 @@
+include requirements.txt
+include README.rst
+#recursive-include myapp/static *
+#recursive-include myapp/templates *
+
+# added by check_manifest.py
+recursive-include biosci_templates *.html
+recursive-include biosci_templates *.jpg
+recursive-include biosci_templates *.png
+recursive-include biosci_templates *.tex
+recursive-include biosci_templates *.txt
+
+# added by check_manifest.py
+include *.txt

@@ -1,0 +1,44 @@
+{% extends "classes/__base.html" %}
+
+{# ########################################### #}
+
+{% block page_title %}Outlines{% endblock %}
+{% block title %}Outlines{% endblock %}
+
+{# ########################################### #}
+
+
+{% block content %}
+
+<p>
+    Should major disruptions to University activities occur as a result of a
+    pandemic or other event, the course content, marks breakdown and other
+    provisions in syllabuses or course outlines
+    may be adjusted as the circumstances warrant.
+</p>
+
+<p>
+    If you would like a copy of a course outline please contact
+    Jaime Stringer at <a href="mailto:Jaime.Stringer@umanitoba.ca">Jaime.Stringer@umanitoba.ca</a> or
+    Maureen Stopchycki at <a href="mailto:Maureen.Stopchycki@umanitoba.ca">Maureen.Stopchycki@umanitoba.ca</a>
+    or you can call the general office at 204-474-9245.
+</p>
+
+{% regroup sectionhandout_list by section.term as term_list %}
+
+{% for term in term_list %}
+    <p>
+        Outline{{ term.list|pluralize }} for {{ term.grouper }}:
+    </p>
+    <ul>
+        {% for sectionhandout in term.list %}
+            <li> <a href="{{ sectionhandout.get_absolute_url }}">{{ sectionhandout.sectionname_label_capfirst }}</a>
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+
+{% endblock %}
+
+
+{# ########################################### #}

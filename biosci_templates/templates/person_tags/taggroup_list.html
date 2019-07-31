@@ -1,0 +1,46 @@
+{% extends 'person_tags/__base.html' %}
+
+{% load humanize %}
+
+{# ############################################################# #}
+
+{% block head_title %}Research Areas{% endblock %}
+{% block body_title %}Research Areas{% endblock %}
+
+{# ############################################################# #}
+
+{% block body_content %}
+
+<p>
+A key goal of the Department of Biological Sciences is to promote
+world-class research in areas that are central to biology now and
+into the future. Faculty interests are currently identified in and
+among
+{{ taggroup_list|length|apnumber }}
+broad areas:
+{% for group in taggroup_list %}
+        {% if forloop.last %} and {% endif %}
+        <a href="{{ group.get_absolute_url }}">
+            {{ group }}</a>{% if not forloop.last %}; {% else %}. {% endif %}
+{% endfor %}
+These themes allow our strong participation in longstanding and
+well-developed research directions, as well as foster innovations
+in newly emerging areas of biology and life sciences.
+For more information about the research interests of specific faculty
+members follow the links to the research themes:
+</p>
+
+<ul>
+{% for group in taggroup_list %}
+    <li>
+        <a href="{{ group.get_absolute_url }}">
+            {{ group }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+
+{# ############################################################# #}

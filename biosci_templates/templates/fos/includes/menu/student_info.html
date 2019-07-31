@@ -1,0 +1,71 @@
+{% comment %}
+/student/
+    /undergraduate/
+    /graduate/
+    [Awards & Scholarships: /student/awards-scholarships/]
+        /student/awards-scholarships/undergrad-awards/
+        /student/awards-scholarships/graduate-awards/
+    /student-groups/
+    /student-files-forms/
+{% endcomment %}
+
+{% load unitpages_tags %}
+{% unitpage_title '/student/' 'label' 'url' %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='Student info' %}
+
+    <ul class="sub-menu">
+        {% unitpage_title '/undergraduate/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title '/graduate/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        <li class="menu-item">
+            {% include './_item.html' with label="Awards & Scholarships" url='#' %}
+            <ul class="sub-menu">
+                {% unitpage_title '/student/awards-scholarships/undergrad-awards/' 'label' 'url' %}
+                {% if url %}
+                    <li class="menu-item">
+                        {% include './_item.html' %}
+                    </li>
+                {% endif %}
+
+                {% unitpage_title '/student/awards-scholarships/graduate-awards/' 'label' 'url' %}
+                {% if url %}
+                    <li class="menu-item">
+                        {% include './_item.html' %}
+                    </li>
+                {% endif %}
+
+            </ul>
+        </li>
+
+        {% unitpage_title '/student-groups/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title '/student-files-forms/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+
+
+    </ul>
+</li>
+{% endif %}

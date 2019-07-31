@@ -1,0 +1,19 @@
+{% extends 'unitpages/__base.html' %}
+
+{% load guardian_tags %}        {# if installed #}
+
+
+{% block page_content_body %}
+
+{% get_obj_perms request.user for page as "page_perms" %}
+{% if perms.unitpages.change_page or 'change_page' in page_perms %}
+    <p>
+        <a href="{% url 'unitpages-update' url=page.url %}">
+            Update page
+        </a>
+    </p>
+{% endif %}
+
+{{ block.super }}
+
+{% endblock %}

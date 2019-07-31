@@ -1,0 +1,65 @@
+{% load unitpages_tags exams_tags dept_classes %}
+
+{% url 'classes-index' as url %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='Courses' %}
+    <ul class="sub-menu">
+        {% unitpage_title '/course-websites/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+{% comment %}
+        {% url 'courseplanning-program-detail' slug='undergraduate' as url %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' with label="Planning" %}
+            </li>
+        {% endif %}
+{% endcomment %}
+
+        {% url 'classes-adv-course-list' as url %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' with label="All courses" %}
+            </li>
+        {% endif %}
+
+        {% url 'classes-outline-list' as url %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' with label="Outlines" %}
+            </li>
+        {% endif %}
+
+        {% url 'exams-list' as url %}
+        {% get_upcoming_exams 'upcoming_exams_qs' days=45 %}
+        {% if url and upcoming_exams_qs.exists %}
+            <li class="menu-item">
+                {% include './_item.html' with label="Upcoming exams" %}
+            </li>
+        {% endif %}
+
+        {% get_advertised_semesters 'semester_list' %}
+        {% for semester in semester_list %}
+            {% url 'classes-semester-detail' slug=semester.slug as url %}
+            {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' with label=semester %}
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        {% sitefile_url 'schedule-a' as url %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' with label="Schedule A" %}
+            </li>
+        {% endif %}
+
+    </ul>
+</li>
+{% endif %}

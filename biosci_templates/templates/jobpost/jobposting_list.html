@@ -1,0 +1,75 @@
+{% extends 'jobpost/__base.html' %}
+{% load markup %}
+
+{# ########################################### #}
+
+{% block page_title %}New Positions{% endblock %}
+{% block title %}New Positions{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+<p>
+    Any positions being advertised through the main office 
+    (for undergraduates or graduate students) will appear on this page.  
+</p>
+
+{% if job_list %}
+
+    <center>
+        <table style="border-spacing: 0.75em">
+            <tr valign="bottom">
+                <th align="left">Position</th>
+                <th align="left">Where</th>
+                <th align="left">Degree Required</th>
+                <th align="left">Deadline</th>
+            </tr>
+            {% for job in job_list %}
+                <tr valign="top">
+                    <td align="left"><a href="{{ job.get_absolute_url }}">{{ job.title }}</a></td>
+                    <td align="left">{{ job.where }}</td>
+                    <td align="left">{{ job.degree_required }}</td>
+                    <td align="left">{{ job.deadline|date:"F j, Y" }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </center>
+{% else %}
+    <p>
+        <strong>Sorry</strong>,
+        there are no jobs right now.
+    </p>
+{% endif %}
+
+{% if category_list %}
+    
+    {% for category in category_list %}
+        {% with links=category.joburl_set.active %}
+            {% if links %}
+                {% if links|length == 1 %}
+                    <h3>{{ category.verbose_name }}</h3>
+                {% else %}
+                    <h3>{{ category.verbose_name_plural }}</h3>
+                {% endif %}
+                {% if category.note %}
+                    {{ category.note|restructuredtext }}
+                {% endif %}
+                <ul>
+                {% for link in links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a>
+                        {% if link.notes %}
+                            ({{ link.notes }})
+                        {% endif %}
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    {% endfor %}
+{% endif %}
+
+
+{% endblock content %}
+
+
+{# ########################################### #}

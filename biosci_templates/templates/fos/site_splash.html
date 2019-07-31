@@ -1,0 +1,56 @@
+{% extends 'fos/splash.html' %}
+{% load unitpages_tags shoutfor markup %}
+
+{% block _main_splash_background_slides %}{% spaceless %}
+
+    {% get_shout_source 'Web Splash' 'splash_list' %}
+    {% for item in splash_list.current %}
+        {% include './includes/_splash_slide.html' with title=item.title summary=item.content|restructuredtext more_info_url=item.more_info background_img=item.asset_set.get_primary.get_absolute_url %}
+    {% endfor %}
+
+    {% sitefile_url 'splash-image-1' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-2' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-3' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-4' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-5' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-6' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-7' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-8' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+    {% sitefile_url 'splash-image-9' as img_src %}
+    {% if img_src %}
+        {% include './includes/_splash_slide.html' with foreground_img=img_src %}
+    {% endif %}
+
+{% endspaceless %}{% endblock %}

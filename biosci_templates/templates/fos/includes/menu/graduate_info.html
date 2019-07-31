@@ -1,0 +1,64 @@
+{% load unitpages_tags %}
+
+{% unitpage_title "/programs/graduate/" "label" "url" %}
+{% if label %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='Graduate Info' %}
+    <ul class="sub-menu">
+        {% unitpage_title "/grad-info/programs/" "label" "url" %}
+        {% if url %}
+        <li class="menu-item">
+            {% include './_item.html' %}
+        </li>
+        {% endif %}
+
+        {% unitpage_title "/grad-info/financial/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/grad-info/admissions/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% url 'math-grad-courses' as url %}
+        {% if url %}
+        <li class="menu-item">
+            {% include './_item.html' with label="Courses" %}
+        </li>
+        {% endif %}
+
+        {% sitefile_url "grad-supp-regs" as link_url %}
+        {% if link_url %}
+            <li class="menu-item">
+                {% include './_item.html' with url=link_url label="Supplemental regulations" %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/grad-info/compexam/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% sitefile_url "grad-thesis-proposal" as link_url %}
+        {% if link_url %}
+            <li class="menu-item">
+                {% include './_item.html' with url=link_url label="Thesis proposal" %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/grad-info/gradsem/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

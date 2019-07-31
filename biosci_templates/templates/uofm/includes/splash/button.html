@@ -1,0 +1,15 @@
+{% load unitpages_tags %}
+{% sitefile_url 'science-image-get-involved' as img_src %}
+{% if img_src %}
+<div id="button">
+    <div class="layer2">
+        <div class="layer3">
+            <div class="layer4"> 
+                <a href="http://umanitoba.ca/faculties/science/1221.html">
+                    <img src="{{ img_src }}" border="0" width="220" height="90">
+                </a>
+            </div><!-- end layer4 -->
+        </div><!-- end layer3 -->
+    </div><!-- end layer2 -->
+</div><!-- end button -->
+{% endif %}

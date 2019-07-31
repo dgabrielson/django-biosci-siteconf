@@ -1,0 +1,32 @@
+{% load unitpages_tags directory_tags %}
+{% url 'directory-entry-list' as url %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='Directory' %}
+    <ul class="sub-menu">
+        {% get_directory_entrytypes 'object_list' %}
+        {% for obj in object_list %}
+            {% url 'directory-entrytype-detail' slug=obj.slug as url %}
+            {% if url and obj.directoryentry_set.active %}
+                <li class="menu-item">
+                    {% include './_item.html' with label=obj.verbose_name_plural %}
+                </li>
+            {% endif %}
+        {% endfor %}
+{% comment %}
+        {% url 'gradstudent-alumni-list' as url %}
+        {% if url %}
+        <li class="menu-item">
+            {% include './_item.html' with label='Alumni' %}
+        </li>
+        {% endif %}
+{% endcomment %}
+        {% unitpage_title '/adjuncts/' 'label' 'url' %}
+        {% if url %}
+        <li class="menu-item">
+            {% include './_item.html' %}
+        </li>
+        {% endif %}
+    </ul>
+</li>
+{% endif %}

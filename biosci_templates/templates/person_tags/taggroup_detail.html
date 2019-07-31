@@ -1,0 +1,39 @@
+{% extends 'person_tags/taggroup_list.html' %}
+{% load markup %}
+
+{% block head_title %}{{ taggroup }}{% endblock %}
+{% block body_title %}{{ taggroup }}{% endblock %}
+
+{% block body_content %}
+
+{{ taggroup.description|restructuredtext }}
+
+{% if taggroup.people %}
+    <p>
+        These people are involved in this research area:
+        <ul>
+            {% for person in taggroup.people %}
+                {% with direntry=person.directoryentry_set.get %}
+                    {% if direntry.type %}
+                        <li>
+                            <a href="{{ person.get_absolute_url }}">
+                                {{ person }}
+                            </a>
+                            {% if direntry.type.slug != 'faculty' %}
+                                ({{ direntry.type }})
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    </p>
+{% endif %}
+
+{% endblock %}
+
+
+{% block page_breadcrumbs %}
+    <span class="divider">&gt;</span>
+    {{ taggroup }}
+{% endblock page_breadcrumbs %}

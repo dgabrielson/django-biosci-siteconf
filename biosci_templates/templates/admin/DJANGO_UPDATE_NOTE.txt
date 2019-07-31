@@ -1,0 +1,3 @@
+When updating Django, update base.html from django/contrib/admin/templates/admin/base.html.
+Remove the Change password link.
+

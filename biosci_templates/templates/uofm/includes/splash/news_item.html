@@ -1,0 +1,32 @@
+{% load shoutfor %}
+{% comment %}
+ Note that, if a url with the name 'splash-news-feed' exists, 
+ That will overwrite this files content. 
+{% endcomment %}
+<div style="width: 345px; float: left; display: inline;">
+{% with obj_category=shout_source.random %}
+    {% with obj=obj_category.random %}
+        {% if obj %}
+            <div class="banner">{{ obj_category.name|truncatewords_html:"10" }}</div>
+            <div class="headline"></div>
+            <div class="story">
+                <p>
+                    {{ obj|shoutfor:"web"|truncatewords_html:"33"|removetags:"p br" }}
+                    {% if obj.url and obj_category.name != 'Event' and obj_category.name != 'News' and obj_category.name != '@StatsUMan' %}
+                        &nbsp;&nbsp;&nbsp; <a href="{{ obj.url }}">Read more</a>
+                    {% endif %}
+                </p>
+            </div>
+        {% else %}
+            <div class="banner">News</div>
+            <div class="headline"></div>
+            <div class="story">
+                <p>
+                    No news right now.
+                </p>
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endwith %}
+</div>
+<div class="newsImage" style="display:inline;float:left;width:120px;height:90px;"></div>

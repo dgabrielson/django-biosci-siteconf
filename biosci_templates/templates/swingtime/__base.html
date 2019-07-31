@@ -1,0 +1,35 @@
+{% extends 'site_base.html' %}
+
+{# ########################################### #}
+
+{% block html_head %}
+{{ block.super }}
+<link href="{{ STATIC_URL }}css/forms.css" rel="stylesheet" type="text/css" />
+<link href="{{ STATIC_URL }}swingtime/css/booking.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{# ########################################### #}
+
+{% block page_title %}Room Schedules{% endblock %}
+
+{# ########################################### #}
+
+{% block page_content_header %}Room Schedules{% endblock %}
+{% block page_content_body %}
+
+{% block main_content %}
+{% endblock main_content %}
+
+{% comment %}
+{% if user.username != 'someuser' %}
+    <p> 
+        If you require a booking, please email <a href="mailto:Some.User@UManitoba.CA">Name</a> 
+        with the details.  
+        Please be sure to include the time, duration, room, and a reason for the booking.
+{% endif %}
+{% endcomment %}
+
+{% endblock %}
+
+
+{# ########################################### #}

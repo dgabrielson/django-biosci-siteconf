@@ -1,0 +1,7 @@
+{% load unitpages_tags %}
+{% unitpage_title '/links/' 'label' 'url' %}
+{% if url %}
+<li class="menu-item {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label="Links" %}
+</li>
+{% endif %}

@@ -1,0 +1,287 @@
+{% load unitpages_tags %}
+
+
+{% comment %}
+{# this is useful debugging info: #}
+<!-- path_info: {{ request.META.PATH_INFO }} -->
+<!-- server_name: {{ request.META.SERVER_NAME }} -->
+<!-- current_site: {{ current_site.domain }} -->
+{% endcomment %}
+
+
+{% with current_url=request.META.PATH_INFO %}
+    <ul class="menu">
+
+        <li>
+            {% url 'home-page' as link_url %}
+            {% if link_url %}
+                <a href="{{ link_url }}"{% if link_url == current_url %} class="selected"{% else %} class="home"{% endif %}>
+                    <!-- {{ SHORT_UNIT_NAME }} -->
+                    Department
+                    Home
+                </a>
+                {% if current_url == link_url %}
+                    {% unitpage_url 'about' as link_url %} 
+                    {% if link_url %}
+                        <ul>
+                        <li>
+                            <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                                About Us
+                            </a>
+                        </li>
+                        </ul>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+        </li>
+
+
+        <li>
+            {% include 'directory/includes/app_navigation.html' %}
+        </li>
+
+
+        <li>
+            {% include 'person_tags/includes/app_navigation.html' %}
+        </li>
+
+
+        <li>
+            {% include 'seminars/includes/app_navigation.html' %}
+        </li>
+
+
+        <li>
+            {% include 'classes/includes/app_navigation.html' %}
+        </li>
+
+
+        {% unitpage_url 'student' as link_url %}
+        {% if link_url %}
+            <li>
+                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                    Student Information
+                </a>
+                {% if current_url|startswith:link_url  %}
+                    <ul>
+                        {# subitems #}
+                        
+                        {% unitpage_url 'undergraduate' as link_url %}
+                        {% if link_url %}
+                            <li>
+                                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                                    Undergraduate Programs
+                                </a>
+                                {% if current_url|startswith:link_url and page_Sidebar_Link %}
+                                    {# page subitems #}
+                                    <ul>
+                                        {% for linkObj in page.Sidebar_Link %}
+                                            <li><a href={{ linkObj.url }}">{{ linkObj.label }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                
+                
+                        {% unitpage_url 'graduate' as link_url %}
+                        {% if link_url %}
+                            <li>
+                                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                                    Graduate Programs
+                                </a>
+                            </li>
+                        {% endif %}
+                
+                        {# unitpage_url 'awards-scholarships' as link_url #}
+                        {# if link_url #}
+                            <li>
+                                {#<a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>#}
+                                    Awards &amp; Scholarships
+                                {#</a>#}
+                                {# if current_url|startswith:link_url #}{# always expand #}
+                                    <ul>
+                                        {% unitpage_url 'undergrad-awards' as link_url %}
+                                        {% if link_url %}
+                                            <li>
+                                                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                                                    Undergraduate
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% unitpage_url 'graduate-awards' as link_url %}
+                                        {% if link_url %}
+                                            <li>
+                                                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                                                    Graduate
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                {# endif #}
+                            </li>
+                            
+                        {# endif #}
+                        
+                        {% unitpage_url 'student-groups' as link_url %}
+                        {% if link_url %}
+                            <li>
+                                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                                    Student Groups
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        {% unitpage_url 'student-files-forms' as link_url %}
+                        {% if link_url %}
+                            <li>
+                                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                                    Student Files &amp; Forms
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+
+
+        {% unitpage_url 'prospective' as link_url %}
+        {% if link_url %}
+            <li>
+                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                    Prospective Students
+                </a>
+            </li>
+        {% endif %}
+
+        {% url 'shout-category-list' as link_url %}
+        {% if link_url %}
+            <li>
+                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                    News &amp; Events
+                </a>
+            </li>
+        {% endif %}
+
+        {% url 'jobpost-list' as link_url %}
+        {% if link_url %}
+            <li>
+                <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                    New Positions
+                </a>
+            </li>
+        {% endif %}
+
+
+
+</ul>
+
+{% if user.is_authenticated %}
+    <br>
+    <div>
+        You are logged in as
+    </div>
+    <div style="text-align:center">
+        {% url 'people-person-detail' as link_url %}
+        <strong>
+        {% if link_url %}
+            <a href="{{ link_url }}">
+                {{ user.get_full_name }}
+            </a>
+        {% else %}
+            {{ user.get_full_name }}
+        {% endif %}
+        </strong>
+    </div>
+    <br>
+
+    <ul class="menu">
+        <li>
+            <a href="{% url 'home-page' %}">Staff</a>
+            <ul class="menu">
+                {% if user.is_staff %}
+                    <li>
+                        <a href="{% url 'admin:index' %}">Site Administration</a>
+                    </li>
+                {% endif %}
+
+                {% url 'people-admin-person-list' as link_url %}
+                {% if link_url and perms.people.change_person %}
+                    <li>
+                        <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                            Add or change a person
+                        </a>
+                    </li>
+                {% endif %}
+
+{% comment %}
+                {% url 'swingtime-choose-location' as link_url %}
+                {% if link_url and perms.swingtime.can_view %}
+                    <li>
+                        <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                            Room Schedules
+                        </a>
+                        {% if current_url|startswith:link_url %}
+                            {# include 'swingtime/includes/app_navigation.html' #}
+                        {% endif %}
+                    </li>
+                {% endif %}
+{% endcomment %}
+
+                {% url 'fileshare-share-list' as link_url %}
+                {% if link_url %}
+                    <li>
+                        <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                            Department Files
+                        </a>
+                    </li>
+                {% endif %}
+        
+                {% unitpage_url 'useful-links' as link_url %}
+                {% if link_url %}
+                    <li>
+                        <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                            Useful Links
+                        </a>
+                    </li>
+                {% endif %}
+        
+                <li>
+                    <a href="{% url 'site-logout' %}"><strong>LOG OUT</strong></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+{% else %}
+    {# NOTE: depending on your public settings, e.g., pushing out to #}
+    {#    snapshots to another server, this may need to be removed!  #}
+    {% if DEBUG or current_site.domain == request.META.SERVER_NAME %}
+        {% url 'site-login' as link_url %}
+        {% if link_url %}
+            <br>
+            <ul class="menu">
+                <li>
+                    <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                       Staff Login
+                    </a>
+                </li>
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+
+{% if current_url == '/lab311/' %}
+    {# extra stuff for a particular page #}
+    <br>
+    <ul class="menu">
+        <li>
+            <a href="http://courses.bfwpub.com/ips7e">StatsPortal</a>
+        </li>
+    </ul>
+{% endif %}
+
+{% endwith %}

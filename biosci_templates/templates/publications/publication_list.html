@@ -1,0 +1,62 @@
+{% extends 'publications/index.html' %}
+{% load people_tags %}
+
+
+{# ########################################### #}
+
+{% block page_title %}Publications{% if person %} - {{ person }}{% endif %}{% endblock %}
+
+{# ########################################### #}
+
+{% block title %}{% if person %}Publications by {{ person }}{% else %}Recent Publications{% endif %}{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+
+    {% if since_year %}
+        <p>
+            Publications from selected department members since {{ since_year }}.
+        </p>
+        <p>
+            <a href="{% url 'publications-people-list' %}">
+                &rarr; Publications by person
+            </a>
+        </p>
+    {% endif %}
+    {% if publication_list %}
+        <ul class="publicationlist">
+            {% for pub in publication_list %}
+                <li>
+                    {{ pub.as_html }}
+                    {% if user|get_person == pub.Owner %}
+                        {% if not pub.Active %}
+                            (inactive)
+                        {% endif %}
+                        <span style="font-size:75%; text-transform:uppercase;">
+                            <a href="{% url 'publications-edit' pub.Reference_Key %}">
+                                [edit]
+                            </a>
+                        </span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if person and person.slug %}
+    <p>
+        <a href="{% url 'publications-personal-bibtex' person.slug %}">
+            &rarr; As BibTeX
+        </a><br>
+        <a href="{{ person.get_absolute_url }}">
+            &rarr; {{ person }}'{% if person.cn|last|lower != 's' %}s{% endif %} info page
+        </a>
+    </p>
+    {% endif %}
+
+{% endblock %}
+
+
+{# ########################################### #}

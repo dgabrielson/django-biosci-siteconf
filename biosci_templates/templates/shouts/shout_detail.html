@@ -1,0 +1,20 @@
+{% extends 'shouts/__base.html' %}
+{% load markup %}
+{% load unitpages_tags %}
+
+{# ######################################################## #}
+
+{% block page_title %}{{ shout.title }}{% endblock %}
+{% block title %}{{ shout.title }}{% endblock %}
+
+
+{# ######################################################## #}
+
+{% block content %}
+
+{{ shout.content|restructuredtext }}
+
+{% endblock %}
+
+
+{# ######################################################## #}

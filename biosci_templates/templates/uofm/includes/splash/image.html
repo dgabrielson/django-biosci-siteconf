@@ -1,0 +1,5 @@
+{% load unitpages_tags %}
+{% sitefile_url 'splash-image' as img_src %}
+{% if img_src %}
+<img src="{{ img_src }}">
+{% endif %}

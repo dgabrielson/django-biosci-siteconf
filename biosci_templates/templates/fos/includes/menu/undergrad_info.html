@@ -1,0 +1,78 @@
+{% load unitpages_tags %}
+
+{% unitpage_title "/programs/undergraduate/" "label" "url" %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label="Undergrad Info" %}
+    <ul class="sub-menu">
+        {% unitpage_title "/programs/undergraduate/co-op/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_load_page '/_content/undergrad-calendar/' 'calendar' %}
+        {% if calendar %}
+            <li class="menu-item">
+                {% include './_item.html' with label=calendar.title url=calendar.content %}
+            </li>
+        {% endif %}
+
+{% comment %}
+        {% unitpage_title "/undergrad-info/programs/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {# a redirect link #}
+        <li class="menu-item">
+            {% include './_item.html' with url='/undegrad-info/admissions/' label='Admissions' %}
+        </li>
+
+        {% unitpage_title "/undegrad-info/choose-your-courses/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/undergrad-info/math-1220-1230-1232/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/undergrad-info/usras/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/undergrad-info/financial/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/undergrad-info/help-centre/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% unitpage_title "/undergrad-info/level-up/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+{% endcomment %}
+    </ul>
+{% endif %}

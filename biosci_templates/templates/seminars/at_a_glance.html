@@ -1,0 +1,51 @@
+{% extends 'seminars/__base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}Seminars at a Glance{% endblock %}
+{% block title %}Seminars at a Glance{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+<p>
+Regular seminars are usually held on Friday afternoon, but this can vary.  
+Please consult the seminar notice for the scheduled day, time, and location.
+</p>
+
+{% for term_name, seminar_date_list in glance_calendar %}
+
+    {% if seminar_date_list %}
+        <h3>{{ term_name }}</h3>
+        
+        <dl>
+
+        {% for dt, seminars, notices in seminar_date_list %}
+            {% if seminars %}
+                {% for seminar in seminars %}
+                    {% include "seminars/includes/seminar_compact.html" %}
+                {% endfor %}
+            {% else %}
+                {% if notices %}
+                    {% for notice in notices %}
+                        <dt><b>{{ notice.when|date:"l, F j" }}</b></dt>
+                        <dd>{{ notice.message }}</dt>
+                    {% endfor %}
+                {% else %}
+                    {# empty dt value #}
+                    {# <dt><b>{{ dt|date:"l, F j" }}</b></dt> #}
+                    {# Biology explicitly does nothing in this case, by request. #}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        
+        </dl>
+    {% endif %}
+
+{% endfor %}
+
+{% endblock content %}
+
+
+{# ########################################### #}

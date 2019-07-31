@@ -1,0 +1,45 @@
+{% load unitpages_tags %}
+
+{% url 'seminars-archive' as url %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='Seminars' %}
+    <ul class="sub-menu">
+        {% url 'seminars-series-list' as url %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' with label="Seminar series" %}
+            </li>
+        {% endif %}
+
+
+        {% url 'seminars-all-future' as url %}
+        {% if url %}
+        <li class="menu-item">
+            {% include './_item.html' with label="Upcoming seminars" %}
+        </li>
+        {% endif %}
+
+
+        {% if user.is_staff %}
+            {% if perms.seminars.add_seminar %}
+                {% url 'admin:seminars_seminar_add' as url %}
+                {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label="&star; Add a new seminar" %}
+                </li>
+                {% endif %}
+            {% endif %}
+
+            {% if perms.seminars.change_seminar %}
+                {% url 'admin:seminars_seminar_changelist' as url %}
+                {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label="&star; Edit seminars" %}
+                </li>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </ul>
+</li>
+{% endif %}

@@ -1,0 +1,25 @@
+{% load unitpages_tags %}
+{# unitpage_title '/careers/' 'label' 'url' #}
+{% url "jobpost-list" as url %}
+{% if url %}
+<li class="menu-item {# menu-item-has-children #}{% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='New Positions' %}
+{% comment %}
+    <ul class="sub-menu">
+        {% unitpage_title '/programs/undergraduate/co-op/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+
+        {% url "jobpost-list" as url %}
+        {% if url %}
+            <li>
+                {% include './_item.html' with label='Jobs in Statistics' %}
+            </li>
+        {% endif %}
+    </ul>
+    {% endcomment %}
+</li>
+{% endif %}

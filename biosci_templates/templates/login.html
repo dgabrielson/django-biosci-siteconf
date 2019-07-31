@@ -1,0 +1,69 @@
+{% extends 'uofm/login.html' %}
+
+{% comment %}
+{% extends 'site_base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}{{ SHORT_UNIT_NAME }} Log in{% endblock %}
+
+{% block html_head %}
+{{ block.super }}
+<link href="{{ STATIC_URL }}css/forms.css" rel="stylesheet" type="text/css">
+<script language="JavaScript">
+    if (top.location != location)
+        top.location.href = location.href;
+</script>
+{% endblock %}
+
+{% block body_params %}class="login"{% endblock %}
+
+
+{# ########################################### #}
+
+{% block page_left_sidebar %}
+
+    {{ block.super }}
+
+    <p class="sidebar_link">
+        <a href="http://iridium.umanitoba.ca/">Account management</a>
+    </p>
+
+
+{% endblock %}
+
+{# ########################################### #}
+
+
+{% block page_content_header %}{% block title %}{{ SHORT_UNIT_NAME }} Login{% endblock %}{% endblock %}
+{% block page_content_body %}
+
+
+<div id="content-main">
+    <form action="" method="post" class="login">{% csrf_token %}
+        <table class="table-form">
+            {{ form }}
+            <tr class="submit-row">
+                <td>
+                    <input type="submit" value="Log in">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script type="text/javascript">
+        if (document.getElementById('id_username').value.length == 0) {
+            document.getElementById('id_username').focus()
+        }
+    </script>
+
+</div>
+
+
+{% endblock page_content_body %}
+
+
+
+
+{# ########################################### #}
+
+{% endcomment %}

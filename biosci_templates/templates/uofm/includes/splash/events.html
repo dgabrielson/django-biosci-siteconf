@@ -1,0 +1,53 @@
+{% load static %}
+<div id="events">
+    <div class="layer2">
+        <div class="layer3">
+            <div class="layer4">
+                <div id="eventContent">
+                    {% if EVENT_CALENDAR_URL %}
+                        <div style="display:inline;float:left;width:300px;height:90px;">
+                            <div class="banner">
+                                <a href="{{ EVENT_CALENDAR_URL }}">
+                                    Events
+                                </a>
+                            </div>
+                            <div class="heading" style="font-size:10px;padding-left:3px;">
+                                <div>
+                                    <p>
+                                        <a href="{{ EVENT_CALENDAR_URL }}">
+                                            <img width="60" vspace="-" hspace="10" height="40" align="left" alt="events" src="{% static 'img/events.jpg' %}" />
+                                            Biological Sciences
+                                            <br />
+                                            Events Calendar
+                                        </a>{% comment %}
+                                        <a href="a-url-for-this-event">
+                                            A specific event<br />
+                                        </a>{% endcomment %}
+                                    </p>
+                                </div>
+                                {# <p>&nbsp;</p> #}
+                            </div>
+                            {% comment %}
+                            <div class="story" style="font-size:10px;width:200px;line-height:11px;padding-left:3px;color:#706f73;">
+                            </div>
+                            {% endcomment %}
+                        </div>
+                    {% else %}
+                    <div style="display:inline;float:left;height:90px;width:220px">
+                        <div class="banner">
+                            Events
+                        </div>
+                        <div class="heading" style="font-size:10px;padding-left:3px;">
+                            <ul>
+
+{% include 'uofm/includes/splash/event_list.html' %}
+
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div><!-- end eventContent -->
+            </div><!-- end layer4 -->
+        </div><!-- end layer3 -->
+    </div><!-- end layer2 -->
+</div><!-- end events -->

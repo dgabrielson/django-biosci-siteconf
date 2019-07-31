@@ -1,0 +1,21 @@
+{% spaceless %}
+
+{% with current_url=request.path %}
+<ul id="secondary-menu" class="menu">
+    {% include './menu/home.html' %}
+    {% include './menu/directory.html' %}
+    {% include './menu/research.html' %}
+    {% include './menu/seminars.html' %}
+    {% include './menu/courses.html' %}
+    {# include './menu/undergrad_info.html' #}
+    {# include './menu/graduate_info.html' #}
+    {% include './menu/student_info.html' %}
+    {% include './menu/news_events.html' %}
+    {% include './menu/jobs.html' %}
+    {% include './menu/links.html' %}
+    {% include './menu/consulting.html' %}
+    {% include './menu/members_only.html' %}
+</ul>
+{% endwith %}
+
+{% endspaceless %}

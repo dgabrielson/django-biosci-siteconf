@@ -1,0 +1,34 @@
+{% comment %}
+This is not a top-level menu element, just an extension of "research"
+{% endcomment %}
+
+{% load people_tags %}
+
+{% url 'publications-main' as url %}
+{% if url %}
+{% with person=user|get_person %}
+    <li class="menu-item{% if 'publications' in person.flags.slugs %} menu-item-has-children{% endif %}">
+        {% include './_item.html' with label='Publications' %}
+
+        {% if 'publications' in person.flags.slugs %}
+            <ul class="sub-menu">
+
+                {% url 'publications-add' as url %}
+                {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label='Add a new publication' %}
+                </li>
+                {% endif %}
+
+                {% url 'publications-bibtex-upload' as url %}
+                {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label='Upload a BibTeX file' %}
+                </li>
+                {% endif %}
+
+            </ul>
+        {% endif %}
+        {% endwith %}
+    </li>
+{% endif %}

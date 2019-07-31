@@ -1,0 +1,7 @@
+wheel
+check-manifest
+
+django-debug-toolbar
+psycopg2
+-e hg+ssh://dave@home.gabrielson.ca/django-biosci-siteconf#egg=django-biosci-siteconf
+

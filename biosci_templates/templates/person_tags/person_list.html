@@ -1,0 +1,42 @@
+{% extends 'person_tags/__base.html' %}
+
+{% block head_title %}Faculty Research{% endblock %}
+{% block body_title %}Faculty Research{% endblock %}
+
+{% block body_content %}
+
+{% comment %}
+    CAUTION:
+    This is structured differently in Statistics than it is in Biology.
+    We must be cautious...
+{% endcomment %}
+
+
+{% for group in object_list %}
+    <h3>
+        <a href="{{ group.get_absolute_url }}">
+            {{ group }}
+        </a>
+    </h3>
+    <ul>
+        {% for person in group.people %}
+            {% if person.directoryentry_set.count > 0 %}
+                <li>
+                    <strong>{% if person.get_absolute_url %}<a href="{{ person.get_absolute_url }}">{% endif %}{{ person }}{% if person.get_absolute_url %}</a>{% endif %}</strong>{% if 'faculty' not in person.directoryentry_set.type_slug_list %} ({{ direntry.type }}){% endif %}:
+                    {% for entry in person.persontaggedentry_set.active %}
+                            {{ entry }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+
+
+{% endblock %}
+
+{% block page_breadcrumbs %}
+    <span class="divider">&gt;</span>
+    Faculty Research
+{% endblock page_breadcrumbs %}

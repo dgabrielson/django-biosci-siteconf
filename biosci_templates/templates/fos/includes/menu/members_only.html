@@ -1,0 +1,60 @@
+{% load unitpages_tags people_tags %}
+
+{% if user.is_active and user.is_authenticated %}
+    {% url 'people-person-detail' as url %}
+    {% if url %}
+    <li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+        {% with person=user|get_person %}
+        {% include './_item.html' with label=person %}
+        <ul class="sub-menu">
+            {% url 'admin:index' as url %}
+            {% if user.is_staff and url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label="&star; Site administration" %}
+                </li>
+            {% endif %}
+{% comment %}
+            {% url 'people-person-detail' as url %}
+            {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label="Profile" %}
+                </li>
+            {% endif %}
+            {% url 'gradebook2-main' as url %}
+            {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label="Gradebook" %}
+                </li>
+            {% endif %}
+{% endcomment %}
+
+        {% url 'fileshare-share-list' as url %}
+        {% if url %}
+            <li>
+                <li class="menu-item">
+                    {% include './_item.html' with label="Department Files" %}
+                </li>
+            </li>
+        {% endif %}
+
+            {% url 'site-logout' as url %}
+            {% if url %}
+                <li class="menu-item">
+                    {% include './_item.html' with label="LOG OUT" %}
+                </li>
+            {% endif %}
+        </ul>
+        {% endwith %}
+    </li>
+    {% endif %}
+{% else %}
+    {# may not need this hackery since math is live-only; no static snapshots #}
+    {# if DEBUG or current_site.domain == request.META.SERVER_NAME #}
+        {% url "site-login" as url %}
+        {% if url %}
+        <li class="menu-item {% if current_url|startswith:url %}current-menu-item{% endif %}">
+            {% include './_item.html' with label='Log in' %}
+        </li>
+        {% endif %}
+    {# endif #}
+{% endif %}

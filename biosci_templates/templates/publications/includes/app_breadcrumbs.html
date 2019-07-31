@@ -1,0 +1,11 @@
+{% include 'person_tags/includes/app_breadcrumbs.html' %}
+
+{% url 'publications-main' as top_url %}
+{% if top_url %}
+    <span class="divider">&gt;</span>
+    {% if top_url != request.path %}
+        <a href="{{ top_url }}">Publications</a>
+    {% else %}
+        Publications
+    {% endif %}
+{% endif %}

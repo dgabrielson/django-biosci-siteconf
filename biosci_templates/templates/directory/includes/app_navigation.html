@@ -1,0 +1,21 @@
+
+{% load unitpages_tags %}
+
+{% url 'directory-entry-list' as link_url %}
+{% if link_url %}
+    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+        Directory
+    </a>
+    {% if link_url in current_url %}
+        <ul>
+            {% unitpage_url 'adjuncts' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                        Adjunct Faculty
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endif %}

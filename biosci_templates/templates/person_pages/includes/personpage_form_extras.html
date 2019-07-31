@@ -1,0 +1,44 @@
+<ul>
+    {% url 'directory-by-person-detail' slug=page.person.slug as link_url %}
+    {% if link_url and perms.directory.edit_directoryentry or request.user.username == page.person.username %}
+        <li>
+            <a href="{{ link_url }}">
+                Manage
+                {% if request.user.username == page.person.username %}my{% endif %}
+                directory information
+            </a>
+            (update mugshot or update a notice)
+        </li>
+    {% endif %}
+
+    {% url 'persontag-person-tagged-entry-update' slug=page.person.slug as link_url %}
+    {% if link_url and perms.person_page.edit_persontaggedentry or request.user.username == page.person.username %}
+        <li>
+            <a href="{{ link_url }}">
+                Manage
+                {% if request.user.username == page.person.username %}my{% endif %}
+                research tags
+            </a>
+        </li>
+    {% endif %}
+
+    {% if 'publications' in page.person.flags.slugs and request.user.username == page.person.username %}
+        {% url 'publications-add' as link_url %}
+        {% if link_url %}
+            <li>
+                <a href="{{ link_url }}">
+                    Add a publication
+                </a>
+            </li>
+        {% endif %}
+        {% url 'publications-personal-list' slug=page.person.slug as link_url %}
+        {% if link_url %}
+            <li>
+                <a href="{{ link_url }}">
+                    Manage my publications
+                </a>
+            </li>
+        {% endif %}
+    {% endif %}
+
+</ul>

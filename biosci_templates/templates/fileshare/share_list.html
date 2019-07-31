@@ -1,0 +1,26 @@
+{% extends 'fileshare/__base.html' %}
+
+{# ########################################### #}
+
+{% block page_title %}Department Files{% endblock %}
+{% block title %}Department Files{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+{% if share_list %}
+    <ul>
+    {% for share in share_list %}
+        <li><a href="{{ share.get_absolute_url }}">{{ share }}</a>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No shares right now.</p>
+{% endif %}
+
+
+{% endblock content %}
+
+
+{# ########################################### #}

@@ -1,0 +1,43 @@
+{% load unitpages_tags %}
+
+
+{% url 'biosci-classes-index' as link_url %}
+{% if link_url %}
+    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+        Courses
+    </a>
+    {% if link_url in current_url %}
+        <ul>
+            {% url 'classes-adv-course-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                        All Courses
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% url 'classes-outline-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if link_url in current_url %} class="selected"{% endif %}>
+                        Outlines
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {% unitpage_url 'course-websites' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}"{% if current_url|startswith:link_url %} class="selected"{% endif %}>
+                        Course Websites
+                    </a>
+                </li>
+            {% endif %}
+    
+
+        </ul>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,214 @@
+{% load unitpages_tags %}
+{% load people_tags %}
+
+
+
+{% block landing_page_nuggets %}
+    
+    {# there must not ever be more than 4 blocks here #}
+    
+    {% include 'includes/rightbar_begin.html' with title="For Students" taskGroup_extra_style="margin-left:0px;" %}
+        <ul type="square">
+
+            {% url 'classes-course-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        List of Courses
+                    </a>
+                </li>
+            {% endif %}
+
+            {% unitpage_url 'undergraduate' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Undergraduate Programs
+                    </a>
+                </li>
+            {% endif %}
+            
+            {% unitpage_url 'graduate' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Graduate Programs
+                    </a>
+                </li>
+            {% endif %}
+        
+            <li>
+                {% unitpage_url 'careers' as link_url %}
+                {% if link_url %}
+                    <a href="{{ link_url }}">
+                        Careers
+                    </a>
+                {% endif %}
+            </li>
+                
+            {% url 'jobpost-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        New Positions
+                    </a>
+                </li>
+            {% endif %}
+    
+        {% unitpage_url 'student-groups' as link_url %}
+        {% if link_url %}
+            <li>
+                <a href="{{ link_url }}">
+                    Student Groups
+                </a>
+            </li>
+        {% endif %}
+        
+        </ul>
+    {% include 'includes/rightbar_end.html' %}
+
+    {% include 'includes/rightbar_begin.html' with title="Research" %}
+        <ul type="square">
+            {% url 'persontag-taggroup-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Research Areas
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'persontag-person-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        List of Faculty by Research Interests
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'publications-main' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Publications
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'seminars-archive' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Seminars
+                    </a>
+                </li>
+            {% endif %}
+
+        </ul>
+    {% include 'includes/rightbar_end.html' %}
+
+    {% include 'includes/rightbar_begin.html' with title="Department Info" %}
+        <ul type="square">
+            <li>
+                {% unitpage_url 'about' as link_url %}
+                {% if link_url %}
+                    <a href="{{ link_url }}">
+                        About the Department
+                    </a>
+                {% endif %}
+            </li>
+                
+            {% url 'directory-entry-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Department Directory
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'shout-category-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        News &amp; Events
+                    </a>
+                </li>
+            {% endif %}
+    
+        </ul>
+    {% include 'includes/rightbar_end.html' %}
+
+
+{% if TEMPLATE_DEBUG or current_site.domain == request.META.SERVER_NAME %}
+
+    {% include 'includes/rightbar_begin.html' with title="For Staff" %}
+        <ul type="square">
+        
+            {% if user.is_staff %}
+                <li>
+                    <a href="{% url 'admin:index' %}">Site Administration</a>
+                </li>
+            {% endif %}
+
+{% comment %}
+            {% url 'swingtime-choose-location' as link_url %}
+            {% if link_url and perms.swingtime.can_view %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Room Schedules
+                    </a>
+                </li>
+            {% endif %}
+{% endcomment %}
+            
+            {% url 'fileshare-share-list' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Department Files
+                    </a>
+                </li>
+            {% endif %}
+    
+            {% unitpage_url 'useful-links' as link_url %}
+            {% if link_url %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Useful Links
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'people-admin-person-list' as link_url %}
+            {% if link_url and perms.people.change_person %}
+                <li>
+                    <a href="{{ link_url }}">
+                        Add or change a person
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                {% with person=user|get_person %}
+                    {% if person.slug and 'directory' in person.flags.slugs %}
+                        {% url 'person-page-update' slug=person.slug as link_url %}
+                        {% if link_url %}
+                            <li>
+                                <a href="{{ link_url }}">
+                                    Update my page
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endwith %}
+                
+            {% endif %}
+                
+        </ul>
+    {% include 'includes/rightbar_end.html' %}
+    
+{% endif %}
+
+{% endblock %}

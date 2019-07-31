@@ -1,0 +1,54 @@
+{% extends 'jobpost/__base.html' %}
+{% load markup %}
+
+
+{# ########################################### #}
+
+{% block page_title %}{{ job.title }}{% endblock %}
+{% block title %}{{ job.title }}{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+    <center>
+        <table class="job-info">
+            <tr>
+                <th align="right">Location:</th>
+                <td>{{ job.where }}</td>
+            </tr>
+            <tr>
+                <th align="right">Degree Required:</th>
+                <td>{{ job.degree_required }}</td>
+            </tr>
+            <tr>
+                <th align="right">Deadline:</th>
+                <td>{{ job.deadline|date:"l, F j, Y" }}</td>
+            </tr>
+            {% if job.url %}
+                <tr>
+                    <th align="right"></th>
+                    <td><a href="{{ job.url }}" target="_blank">{{ job.url }}</a></td>
+                </tr>
+            {% endif %}
+            {% if job.notes %}
+                <tr>
+                    <th align="right"></th>
+                    <td>{{ job.notes }}</td>
+                </tr>
+            {% endif %}
+        </table>
+    </center>
+
+    <div class="job-details">
+        {{ job.content|restructuredtext }}
+    </div>
+
+    <center>
+        <a href="{% url 'jobpost-list' %}">[Back to the position list.]</a>
+    </center>
+
+{% endblock %}
+
+
+{# ########################################### #}

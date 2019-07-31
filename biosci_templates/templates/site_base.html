@@ -1,0 +1,63 @@
+{% extends 'uofm/site_base.html' %}
+{% load markup %}
+
+{# ########################################### #}
+
+{% block head_js %}
+<script language="javascript" type="text/javascript">
+
+function init()
+{
+    setPageObjects();
+    leftNav();
+}
+</script>
+
+{% endblock %}
+
+
+{# ########################################### #}
+
+{% block page_header %}
+    {% url 'home-page' as link_url %}
+    {% if request.META.PATH_INFO != link_url %}
+        <a href="{% url 'home-page' %}">{{ LONG_UNIT_NAME }}</a>
+    {% else %}
+        {{ LONG_UNIT_NAME }}
+    {% endif %}
+{% endblock %}
+
+
+{# ########################################### #}
+
+
+{% block page_main %}
+    <div id="centerHeader">{% block page_content_header %}
+    {% if page.title %}
+        {% if page.slug != "index" %}
+            {{ page.title }}
+        {% endif %}
+    {% endif %}{% endblock %}</div><!--end centerHeader-->
+
+<div id="centerInfo">
+{% block page_content_body %}
+    {% if page.content %}
+        {{ page.content|restructuredtext }}
+    {% endif %}
+
+    {% block template_specific %}
+    {% endblock template_specific %}
+
+{% endblock %}
+</div><!--end centerInfo-->
+{% endblock page_main %}
+
+
+{# ########################################### #}
+
+{% block base_main_page_post_wrapper %}
+{{ block.super }}
+{% include 'analytics.html' %}
+{% endblock base_main_page_post_wrapper %}
+
+{# ########################################### #}

@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ SHORT_UNIT_NAME }} site admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"> <a href="/">{{ SHORT_UNIT_NAME }}</a> <a href="{% url 'admin:index' %}">Administration</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block userlinks %}
+    {% url 'django-admindocs-docroot' as docsroot %}
+    {% if docsroot %}
+        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+    {% endif %}
+{# change password removed #}
+    {% url 'admin:logout' as logout_url %}
+    {% if logout_url %}
+        <a href="{{ logout_url }}">
+    {% else %}
+        {% if root_path %}
+            <a href="{{ root_path }}logout/">
+        {% else %}
+            <a href="/logout/">
+        {% endif %}
+    {% endif %}
+    {% trans 'Log out' %}</a>
+{% endblock %}

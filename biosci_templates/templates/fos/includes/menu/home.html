@@ -1,0 +1,12 @@
+{% load unitpages_tags %}
+<li class="menu-item menu-item-has-children {% if current_url == '/' or current_url == '/about/' %}current-menu-item{% endif %}">
+    {% include './_item.html' with url='/' label='Home' %}
+    {% unitpage_title '/about/' 'label' 'url' %}
+    {% if url %}
+    <ul class="sub-menu">
+        <li class="menu-item">
+            {% include './_item.html' %}
+        </li>
+    </ul>
+    {% endif %}
+</li>

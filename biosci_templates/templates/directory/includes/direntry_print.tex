@@ -1,0 +1,32 @@
+%
+{{ entry.person }}
+&
+{% if entry.title %}%
+    \raggedright {{ entry.title }}
+{% else %}%
+    \raggedright {{ entry.person.title }}
+{% endif %}%
+&
+{% if entry.office %}{{ entry.office }}{% endif %} %
+&
+{% if entry.person.phone %}%
+    {% if entry.person.phone.number|slice:":4" == '204-' %}%
+        {{ entry.person.phone.number|slice:"4:" }} %
+    {% else %}%
+        {{ entry.person.phone }} %
+    {% endif %}%
+{% else %} %
+    {% if entry.office.phone_number %} %
+        {% if entry.office.phone_number|slice:":4" == '204-' %}%
+            {{ entry.office.phone_number|slice:"4:" }} %
+        {% else %}%
+            {{ entry.office.phone_number }} %
+        {% endif %}%
+    {% endif %} %
+{% endif %} %
+%
+{% if entry.note %}%
+\\
+    \multicolumn{4}{l}{\emph{\mbox{}\hspace*{2cm}\footnotesize {{ entry.note }} }} 
+{% endif %}%
+\\

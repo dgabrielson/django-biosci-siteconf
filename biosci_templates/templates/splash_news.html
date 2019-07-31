@@ -1,0 +1,18 @@
+{% load shoutfor %}
+<div class="banner">News</div>
+<div id="latestnews" class="flips-container">
+    {% for obj_category in shout_category_list %}
+        {% for obj in obj_category %}
+            <div class="block">
+                {% if obj.url %}
+                <div class="headline"><a href="{{ obj.url }}">{{ obj|shoutfor:"feed_title" }}</a></div>
+                {% else %}
+                <div class="headline">{{ obj|shoutfor:"feed_title" }}</div>
+                {% endif %}
+                <div class="story"><span class="ellipsis_text">
+                    {{ obj|shoutfor:"feed_description" }}
+                </span></div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

@@ -1,0 +1,57 @@
+{% extends 'seminars/__base.html' %}
+{% load unitpages_tags %}
+
+
+{# ########################################### #}
+
+{% block page_title %}Seminars{% endblock %}
+{% block title %}Seminars{% endblock %}
+
+{# ########################################### #}
+
+{% block content %}
+
+     {% unitpage_url 'departmental-seminars' as link_url %}
+     {% if link_url %}
+        <p>
+            <a href="{{ link_url }}">
+                Click here
+            </a>
+            for more information about our seminar series.
+        <p>
+    {% endif %}
+
+    {% if upcoming_seminars %}
+        <h2>Upcoming Seminars</h2>
+         {% for seminar in upcoming_seminars %}
+            <div class="seminar">
+                {% include "seminars/includes/info_part.html" %}
+             </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if latest %}
+        <h2>Recent Seminars</h2>
+        {% for seminar in latest|slice:":5" %}
+            <div class="seminar">
+                {% include "seminars/includes/info_part.html" %}
+             </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if date_list %}
+        <br>
+        <hr>
+        <br>
+        <center>
+            Seminars for:
+            {% for dt in date_list %}
+                <a href="{% url 'seminars-archive-year' dt.year %}">{{ dt|date:"Y" }}</a>{% if not forloop.last %},{% else %}.{% endif %}
+            {% endfor %}
+        </center>
+    {% endif %}
+
+{% endblock content %}
+
+
+{# ########################################### #}

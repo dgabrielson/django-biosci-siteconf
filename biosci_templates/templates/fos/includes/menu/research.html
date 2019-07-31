@@ -1,0 +1,35 @@
+{% load persontags unitpages_tags %}
+
+{% url 'persontag-taggroup-list' as url %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='Research' %}
+    <ul class="sub-menu">
+        {# research area links #}
+        {% load_taggroups "area_list" %}
+        {% for area in area_list %}
+            <li class="menu-item">
+                {% include './_item.html' with url=area.get_absolute_url label=area %}
+            </li>
+        {% endfor %}
+
+        {# additional links #}
+        {% url 'persontag-person-list' as url %}
+        {% if url %}
+        <li class="menu-item">
+            {% include './_item.html' with label='By person' %}
+        </li>
+        {% endif %}
+
+        {% comment %}
+        {% url 'persontag-tag-list' as url %}
+        {% if url %}
+        <li class="menu-item">
+            {% include './_item.html' with label='By interest' %}
+        </li>
+        {% endif %}
+        {% endcomment %}
+
+        {% include './publications.html' %}
+    </ul>
+{% endif %}

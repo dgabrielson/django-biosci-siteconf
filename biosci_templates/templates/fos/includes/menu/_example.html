@@ -1,0 +1,21 @@
+{% load unitpages_tags %}
+{% url 'directory-table-type-list' as url %}
+{% if url %}
+<li class="menu-item menu-item-has-children {% if current_url|startswith:url %}current-menu-item{% endif %}">
+    {% include './_item.html' with label='People' %}
+    <ul class="sub-menu">
+        {% unitpage_title '/faculty-info/' 'label' 'url' %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+        {% unitpage_title "/grad-info/financial/" "label" "url" %}
+        {% if url %}
+            <li class="menu-item">
+                {% include './_item.html' %}
+            </li>
+        {% endif %}
+    </ul>
+</li>
+{% endif %}
